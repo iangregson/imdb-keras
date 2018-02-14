@@ -16,7 +16,7 @@ import csv_utils as utils
 import sys, pickle
 
 # set parameters:
-max_features = 200000
+max_features = 50000
 maxlen = 400
 batch_size = 32
 embedding_dims = 50
@@ -27,6 +27,8 @@ epochs = 2
 
 print('Loading data...')
 (x_train, y_train), (x_test, y_test), vocab = utils.load_data(sys.argv[1])
+max_features = len(vocab) + 1
+print('maxfeatures=', max_features)
 print(len(x_train), 'train sequences')
 print(len(x_test), 'test sequences')
 
@@ -77,5 +79,5 @@ model.fit(x_train, y_train,
           validation_data=(x_test, y_test),
           callbacks=[tensorBoardCallback])
 
-model.save('cnn_classifier.h5')
-pickle.dump(vocab, open('vocab.pkl', 'wb'))
+model.save('output/cnn_classifier.h5')
+pickle.dump(vocab, open('output/vocab.pkl', 'wb'))

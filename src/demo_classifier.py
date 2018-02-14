@@ -6,7 +6,7 @@ from keras.preprocessing import sequence
 
 def main(classifier):
     model = load_model(classifier)
-    vocab = pickle.load(open('vocab.pkl', 'rb'))
+    vocab = pickle.load(open('output/vocab.pkl', 'rb'))
 
     command = ''
 

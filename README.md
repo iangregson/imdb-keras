@@ -13,7 +13,13 @@ docker pull ufoym/deepo:cpu
 **Start container and run Tensorboard**
 
 ```bash
-docker run --rm -d -v $PWD/src:/src:rw -v $PWD/data:/data:rw -p 0.0.0.0:6006:6006 ufoym/deepo:cpu tensorboard --logdir=./logs && export CONTAINER_ID=$(docker ps -lq)
+docker run --rm -d \
+  -v $PWD/src:/src:rw \
+  -v $PWD/data:/data:rw \
+  -v $PWD/output:/output:rw \
+  -p 0.0.0.0:6006:6006 \
+  ufoym/deepo:cpu \
+  tensorboard --logdir=./logs && export CONTAINER_ID=$(docker ps -lq)
 ```
 
 **Get a shell on the ML container**
@@ -31,7 +37,7 @@ docker exec -it $CONTAINER_ID python src/imdb_cnn.py data/imdb.csv
 **Demo classifier**
 
 ```bash
-docker exec -it $CONTAINER_ID python src/demo_classifier.py cnn_classifier.h5
+docker exec -it $CONTAINER_ID python src/demo_classifier.py output/cnn_classifier.h5
 ```
 
 **Run classifier**
